@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="styles.css">
+    <title>For Kay Thi Myat Chel</title>
+    
+</head>
+<body>
+
+    <div id="login-page" class="container">
+    <img src="https://imgs.search.brave.com/dYcLk6QjUhuPDn9XU-xvzCP5HSaPuV2PseKyUwgNbGk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2EzL2Q2/Lzk3L2EzZDY5NzA5/MDA4YjA3Yzk5NjE2/ZDVjNzhkZjI4YmQ3/LmpwZw" class="floating-gif">
+    
+    <h1 style="color: var(--pink); font-size: 26px; margin: 0;">Hello, Princess</h1>
+    
+    <input type="text" id="username" placeholder="Username" autocomplete="off">
+    
+    <div class="password-container">
+        <input type="password" id="password" placeholder=" Password ">
+        <div class="eye-toggle" onclick="togglePassword()">
+            <span id="eye-icon">👁️</span>
+        </div>
+    </div>
+    
+    <button onclick="checkLogin()">Login ❤️</button>
+    <p id="error" style="color: #ff6b6b; font-size: 14px; margin-top: 10px;"></p>
+</div>
+
+    <div id="main-page" class="container hidden">
+    <h2 style="color: var(--pink)">Princess ✨</h2>
+    <p style="font-size: 15px; line-height: 1.4; color: #888;">Welcome to your little corner of the internet. Here's a tour of what's inside:</p>
+    
+    <div class="nav-grid">
+        <div class="nav-card" onclick="showSection('dates')">
+            <div>
+                <div style="font-size: 1.8rem; margin-bottom: 5px;">🌹</div>
+                Our Dates
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="showSection('memories')">
+            <div>
+                <div style="font-size: 1.8rem; margin-bottom: 5px;">📸</div>
+                Memories
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="showSection('gifts')">
+            <div>
+                <div style="font-size: 1.8rem; margin-bottom: 5px;">🎁</div>
+                Gifts
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="showSection('apologies')">
+            <div>
+                <div style="font-size: 1.8rem; margin-bottom: 5px;">🥺</div>
+                Apologies
+            </div>
+        </div>
+        
+        <div class="nav-card full-width" onclick="showSection('todo')">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 2rem;">💖</span>
+                <span style="text-align: left;">Things to do when you are...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="content-page" class="container hidden">
+        <a href="#" class="back-link" onclick="goHome()">← Back to Menu</a>
+        
+        <div id="dates" class="content-section hidden">
+            <h3 style="color: var(--pink)">Our Dates</h3>
+            <div class="photo-slot">
+                <div class="photo-placeholder">Photo 1</div>
+                <p><b>Sept 23:</b> Our very first dinner. I was so nervous!</p>
+            </div>
+        </div>
+
+        <div id="memories" class="content-section hidden">
+            <h3 style="color: var(--pink)">Memories</h3>
+            <div class="photo-slot">
+                <div class="photo-placeholder">Memory Photo</div>
+                <p>The time we stayed up until 3 AM just talking.</p>
+            </div>
+        </div>
+
+        <div id="gifts" class="content-section hidden">
+            <h3 style="color: var(--pink)">Gifts & Letters</h3>
+            <div class="photo-slot">
+                <div class="photo-placeholder">Gift Photo</div>
+                <p>To my favorite person, this is just a small reminder of how much you mean to me...</p>
+            </div>
+        </div>
+
+        <div id="apologies" class="content-section hidden">
+            <h3 style="color: var(--pink)">My Apologies</h3>
+            <div class="photo-slot">
+                <p>I know I'm not perfect, but I promise to always try my best for you. I'm sorry for any time I made you feel less than the queen you are.</p>
+            </div>
+            <h3 style="color: var(--pink)">My Apologies</h3>
+            <div class="photo-slot">
+                <p>I know I'm not perfect, but I promise to always try my best for you. I'm sorry for any time I made you feel less than the queen you are.</p>
+            </div>
+            <h3 style="color: var(--pink)">My Apologies</h3>
+            <div class="photo-slot">
+                <p>I know I'm not perfect, but I promise to always try my best for you. I'm sorry for any time I made you feel less than the queen you are.</p>
+            </div>
+            <h3 style="color: var(--pink)">My Apologies</h3>
+            <div class="photo-slot">
+                <p>I know I'm not perfect, but I promise to always try my best for you. I'm sorry for any time I made you feel less than the queen you are.</p>
+            </div>
+        </div>
+
+        <div id="todo" class="content-section hidden">
+    <h3 style="color: var(--pink); text-align: center; margin-bottom: 20px;">When you are...</h3>
+    
+    <div class="todo-grid">
+        
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">☁️</span>
+            <div style="font-weight: bold;">...Sad</div>
+            <div class="todo-content">
+                <p>Remember that it's okay to not be okay. I am here to hold your hand through the rain until the sun comes out again. I love you.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🧘‍♀️</span>
+            <div style="font-weight: bold;">...Stressed</div>
+            <div class="todo-content">
+                <p>Close your eyes and take 3 deep breaths. You are capable of handling anything, but you don't have to handle it alone. Let me help.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">✨</span>
+            <div style="font-weight: bold;">...Happy</div>
+            <div class="todo-content">
+                <p>Your smile is my favorite thing in the world! Tell me what happened so I can celebrate your happiness with you.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🌙</span>
+            <div style="font-weight: bold;">...Tired</div>
+            <div class="todo-content">
+                <p>Put your phone down, wrap yourself in your favorite blanket, and rest. You’ve worked so hard today. Sleep well, my love.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🎈</span>
+            <div style="font-weight: bold;">...Bored</div>
+            <div class="todo-content">
+                <p>Let's plan our next adventure! Or, go to our "Memories" tab and look at the photos of us. I bet you'll smile.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🔥</span>
+            <div style="font-weight: bold;">...Angry</div>
+            <div class="todo-content">
+                <p>I’m here to listen whenever you're ready to vent. I promise to be on your side. Take your time to cool down.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🧸</span>
+            <div style="font-weight: bold;">...Lonely</div>
+            <div class="todo-content">
+                <p>Even when we aren't together, I am carrying you in my heart. Call me right now—I always want to hear your voice.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🌊</span>
+            <div style="font-weight: bold;">...Overwhelmed</div>
+            <div class="todo-content">
+                <p>Focus on just one small thing at a time. I believe in you so much. You’ve got this, and I’ve got you.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">💌</span>
+            <div style="font-weight: bold;">...Missing Me</div>
+            <div class="todo-content">
+                <p>I’m probably missing you more! Read the letters in the "Gifts" section—they were written with so much love for you.</p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🍕</span>
+            <div style="font-weight: bold;">...Hungry</div>
+            <div class="todo-content">
+                <p>Don't get hangry! Go grab a snack or check your phone—I might have just sent a treat to your door.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <script>
+        function checkLogin() {
+            const user = document.getElementById('username').value.toLowerCase().replace(/\s/g, '');
+            const pass = document.getElementById('password').value;
+            
+            if(user === '' && pass === '') {
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('main-page').classList.remove('hidden');
+                window.scrollTo(0,0);
+            } else {
+                document.getElementById('error').innerText = "How about trying your birth date?, beautiful! ❤️";
+            }
+        }
+
+                function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.innerHTML = '🙈'; // Eye closed emoji
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.innerHTML = '👁️'; // Eye open emoji
+            }
+        }
+
+        function showSection(id) {
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('content-page').classList.remove('hidden');
+            document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function goHome() {
+            document.getElementById('content-page').classList.add('hidden');
+            document.getElementById('main-page').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        
+            function expand(element) {
+        const allItems = document.querySelectorAll('.todo-item');
+        
+        allItems.forEach(item => {
+            if (item !== element) {
+                item.classList.remove('active'); // Closes other boxes
+            }
+        });
+
+        element.classList.toggle('active'); // Opens/Closes the clicked box
+        }
+    </script>
+</body>
+</html>
