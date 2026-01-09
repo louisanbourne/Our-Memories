@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        :root {
+            --cream: #FAA0A0;
+            --pink: #F4C2C2;
+            --dark-pink: #d8a0a0;
+            --text: #5d4037;
+        }
+
+        /* Base styles optimized for mobile */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Start at top for scrolling */
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--pink);
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+    /* Things to Do - Expanding Grid */
+        .todo-grid {
+            display: flex ;
+            flex-wrap: wrap ;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .todo-item {
+            flex: 1 1 calc(50% - 5px); /* 2 columns */
+            background: var(--pink);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            animation: popIn 0.5s ease backwards;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .todo-item.active {
+            flex: 1 1 100%; /* Wider on click */
+            background: white;
+            color: var(--text);
+            border: 2px solid var(--pink);
+        }
+
+        .todo-content { display: none; margin-top: 10px; line-height: 1.5; font-size: 15px; }
+        .active .todo-content { display: block; }
+
+            /* 1. Entry Animation: Items pop in one by one */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+
+        /* 2. Staggered Delay: Makes boxes appear in a sequence */
+        .todo-item:nth-child(1) { animation-delay: 0.1s; }
+        .todo-item:nth-child(2) { animation-delay: 0.2s; }
+        .todo-item:nth-child(3) { animation-delay: 0.3s; }
+        .todo-item:nth-child(4) { animation-delay: 0.4s; }
+        .todo-item:nth-child(5) { animation-delay: 0.5s; }
+        .todo-item:nth-child(6) { animation-delay: 0.6s; }
+        /* ... and so on */
+
+        /* 3. The "Expanded" State Animation */
+        .todo-item.active {
+            flex: 1 1 100%; /* Wider */
+            background: white;
+            color: var(--text);
+            border: 2px solid var(--pink);
+            transform: scale(1.02); /* Slight "pop" forward */
+            box-shadow: 0 10px 20px rgba(244, 194, 194, 0.4);
+        }
+
+        /* 4. Text Reveal Animation */
+        .todo-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, opacity 0.4s ease;
+            padding-top: 0;
+        }
+
+        .active .todo-content {
+            max-height: 300px; /* Big enough for the paragraph */
+            opacity: 1;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        /* 5. Subtle "Floating" effect when she touches it */
+        .todo-item:active {
+            transform: scale(0.95);
+        }
+        .container {
+            width: 100%;
+            max-width: 414px; /* Exact iPhone 11 width */
+            background: white;
+            padding: 25px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .menu-emoji {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    display: inline-block;
+    animation: emojiFloat 3s ease-in-out infinite;
+}
+
+.back-link {
+            display: block;
+            text-align: left;
+            color: var(--dark-pink);
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        </style>
+        <div class="container">
+            <a href="#" class="back-link" onclick="goHome()">← Back to Menu</a>
+<div id="todo" class="content-section">
+    <h2 style="color: var(--pink); text-align: center; margin-bottom: 20px;">When you are...</h3>
+    
+    <div class="todo-grid">
+        
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;" class="menu-emoji">☁️</span>
+            <div style="font-weight: bold;">...Sad</div>
+            <div class="todo-content">
+                <p>
+                    အခုလိုမျိုးအဆင်မပြေ ဝမ်းနည်းနေတာက ပုံမှန်ပါပဲနော်ချယ်။ အခုလိုမျိုး စိတ်ခံစားချက်လွယ်တာ တစ်ခါတစ်လေမှာ ပျော့ညံ့တယ်ဆိုတာကလဲ သာမန်ပါပဲ။ လူတိုင်းကတော်နေစရာမလိုသလို perfect ဖြစ်နေစရာလဲမလိုဘူးနော်ချယ်။ တစ်ခုသိထားဖို့က ချယ်ဝမ်းနည်းမဲ့အချိန်တိုင်းမှာ ကျွန်တော်ချယ့်ဘေးနားမှာရှိပါတယ်။ မုန်တိုင်းတွေကျော်လွန်ပြီး နေရောင်ခြည်တွေပေါ်ထွန်းတဲ့အချိန်အထိ ကျွန်တော်ချယ့်ဘေးနားမှာရှိပေးမှာနော်။ ကျွန်တော်ချယ့်လက်ကလေးတွေကိုအမြဲစုပ်ကိုင်ထားမှာပါဗျ။ အားတင်းနားနော် ကျွန်တော်ရှိတယ် ချစ်လဲချစ်တယ်။
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🧘‍♀️</span>
+            <div style="font-weight: bold;">...Stressed</div>
+            <div class="todo-content">
+                <p>
+                    မျက်လုံးလေးကိုမှိတ်ပြီး အသက်ကိုပြင်းပြင်းလေးရှူလိုက်နော်။ ချယ်ကအရာအားလုံးကိုကိုင်တွယ်တဲ့နေရာမှာ အရမ်းထူးချွန်တယ် ဒါပေမယ့်လဲ အဲ့အရာတွေကိုချယ်တစ်ယောက်တည်းကိုင်တွယ်ဖို့မလိုဘူးနော် ကျွန်တော်ကူညီပေးမှာပါ။ အခုတော့ မျက်လုံးလေးကိုမှိတ် အတွေးလေးတွေထဲမှာ ကျွန်တော့်ကို ခဏနာ ငှားပြီး ပျော်ရွှင်စရာလေးတွေကို စိတ်ကူးယဉ်ကြည့်ပါနော်။
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">✨</span>
+            <div style="font-weight: bold;">...Happy</div>
+            <div class="todo-content">
+                <p>
+                    ချယ့်ရဲ့ သွားလေးတွေပေါ်ပြီး ပြုံးတဲ့အပြုံးလေးတွေက ကျွန်တော်အကြိုက်ဆုံးပါပဲ။ ကဲဒီနေ့ဘာတွေပျော်နေတာလဲဆိုတာကိုပြောပြပါဦးဗျ။ ကျွန်တော်နားထောင်ချင်တယ်နော်။ အမြဲတမ်းနားထောင်နေပါတယ်နော်ဗျ။
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🌙</span>
+            <div style="font-weight: bold;">...Tired</div>
+            <div class="todo-content">
+                <p>
+                    ကဲပင်ပန်းနေပြီ ကလေးလေး။ ဖုန်းလေးကိုချထားတော့နော် ချယ့်အကြိုက်ဆုံး အိပ်ယာလေးထဲကိုသွား ဆောင်လေးကိုခြုံပြီးခဏနားလိုက်တော့နော်။ ဒီနေ့ အလုပ်တွေတော်တော်ကြိုးစားခဲ့ပြီးပါပြီ ပင်ပန်းနေမှန်းလဲသိပါတယ်ဗျ။ ကောင်းကောင်းအနားယူပါ ကလေးလေး။
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🎈</span>
+            <div style="font-weight: bold;">...Bored</div>
+            <div class="todo-content">
+                <p>
+                    ကဲပျင်းနေပြီ ဘာတွေလုပ်ကြမလဲဝေ့ plato ကစားကြမလား roblox မှာ ပီဇာဆိုင်ဖွင့်ကြမလား။ ဒါမှမဟုတ် ကျွန်တော်အတူတူ ဇာတ်ကားကြည့်တာပဲဖြစ်ဖြစ် discord ကနေစကားပြောတာပဲဖြစ်ဖြစ်လုပ်ကြရအောင် ပျော်ဖို့ကောင်းမှာသေချာသလို ချယ့်ပျင်းနေတဲ့စိတ်တွေကိုလဲ ပျောက်မယ်ထင်ပါတယ်။
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🔥</span>
+            <div style="font-weight: bold;">...Angry</div>
+            <div class="todo-content">
+                <p>
+                    ဝိုး ဝိုး ဝိုး စိတ်လေးကိုလျှော့ပါဦး ကလေးလေး။ ကြောက်ပါတယ်နော်။ တစ်ခုခုပုံချချင်ရင် ဟောဒီကောင်ကြီးစီကိုစာပို့လိုက်နော်။ ကျွန်တော်ဘေးနားကနေ ရှယ်ပလန်နဲ့နားထောင်ပေးပါ့မယ်။ ကဲစိတ်လေးကိုလျှော့ပြီး အေးအေးလေးနေဖို့အချိန်တန်ပြီနော်ကလေးလေး။ @louisanbourne 
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🧸</span>
+            <div style="font-weight: bold;">...Lonely</div>
+            <div class="todo-content">
+                <p>
+                    အခုအချိန်ကျွန်တော်အနားမှာမရှိသေးရင်တောင်မှပဲ ချယ့် နှလုံးသားရဲ့ တစ်နေရာရာမှာကျွန်တော်ရှိမယ်လို့မျှော်လင့်ပါတယ်ဗျ။ ဖုန်းဆက်ပါ ပျင်းနေတဲ့အခါကျရင် ကျွန်တော်ချယ့်အသံလေးကိုကြားချင်လို့ပါနော်။ <b>မင်းပျင်းတဲ့အခါကျ "ဟိုင်း"လိုက်ပေါ့ မလိုတော့တဲ့အခါကျ bye လိုက်ပေါ့ကွာ။ </b>
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🌊</span>
+            <div style="font-weight: bold;">...Overwhelmed</div>
+            <div class="todo-content">
+                <p>
+                    ဟိတ်ဘာတွေစိတ်ပူနေတာတုန်း။ ကဲအလုပ်တွေများပြီးဘာလုပ်လို့ရမယ်မှန်းမသိဘူးဖြစ်နေတာမလား ကဲကဲ တစ်ခုကိုပဲ အာရုံစိုက်ပြီးနောက်တစ်ခုကိုလုပ်နော်။ ချယ့်အနောက်မှာ ကျွန်တော်လဲရှိသလို ချယ့်ကိုလဲ ကျွန်တော်ယုံကြည်တယ် ဖိုက်တိုး ကလေးလေး I've got your back
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">💌</span>
+            <div style="font-weight: bold;">...Missing Me</div>
+            <div class="todo-content">
+                <p>
+                    ဘယ်ကောင်လဲကွခိုးလွမ်းနေတာ။ ပြောတော့မလွမ်းဘူးဆို။ အမယ်ကြည့်ပါဦး သတိတွေရနေတာပေါ့လေ။ ကျွန်တော်တို့ရဲ့ အငွေ့အသက်လေးတွေကို ကြည့်ချင်ရင် our memories, dates, gifts ဆိုပြီးထည့်ထားပါတယ်ဗျ သွားကြည့်နိုင်ပါတယ်နော်။ အကယ်လို့ ဒီ့ထက်လွမ်းနေရင် ဟယ်လိုလုပ်လိုက်ပေါ့။ ဒါပေမယ့်ဘယ်သူပိုလွမ်းလဲပြိုင်မယ်ဆိုရင် မင်းတောင်လက်မြှောက်အရှုံးပေးရဦးမှာပါ။
+                </p>
+            </div>
+        </div>
+
+        <div class="todo-item" onclick="expand(this)">
+            <span style="font-size: 1.5rem;">🍕</span>
+            <div style="font-weight: bold;">...Hungry</div>
+            <div class="todo-content">
+                <p>
+                    ဗိုက်ဆာနေသလား မာမားကိုစား။ ခေါက်ဆွဲပြုတ်တွေလဲသိပ်မစားနဲ့နော်။ ဒါမဲ့ အခုအိမ်မှာစားစရာမရှိရင် ဒီကကောင်ကြီးကို လှမ်းပြောလိုက် ရွှတ်ဆို မုန့်လာပို့ပေးလိုက်မယ်ဟုတ်ပြီလား။ 
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+        </div>
+    
+<script>
+    function expand(element) {
+        const allItems = document.querySelectorAll('.todo-item');
+        
+        allItems.forEach(item => {
+            if (item !== element) {
+                item.classList.remove('active'); // Closes other boxes
+            }
+        });
+
+        element.classList.toggle('active'); // Opens/Closes the clicked box
+        }
+        function goHome() {
+            window.location.href = "index.html";
+        }
+        
+</script>
+</body>
+</html>

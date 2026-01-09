@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Haunted Love Maze</title>
+    <style>
+        :root {
+            --cream: #FAA0A0;
+            --pink: #F4C2C2;
+            --dark-pink: #d8a0a0;
+            --text: #5d4037;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 414px;
+            background: white;
+            padding: 25px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Fixed: Link will not turn purple and goes to main menu */
+        .back-link, .back-link:visited, .back-link:active {
+            display: block;
+            text-align: left;
+            color: var(--dark-pink) !important;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .hidden { display: none !important; }
+
+        .screen { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+        h2 { color: var(--pink); margin-top: 0; }
+
+        .btn-main {
+            background: var(--pink);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--dark-pink);
+            transition: 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-main:active { transform: translateY(4px); box-shadow: none; }
+
+        .diff-btn {
+            background: white;
+            border: 2px solid var(--pink);
+            color: var(--text);
+            padding: 12px;
+            width: 220px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px 0;
+            transition: 0.2s;
+        }
+
+        .diff-btn:hover { background: var(--pink); color: white; }
+
+        #mazeCanvas {
+            background: #fffafa;
+            border: 4px solid var(--pink);
+            border-radius: 20px;
+            touch-action: none;
+        }
+
+        .maze-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .control-row { display: flex; gap: 15px; }
+
+        .btn {
+            background: var(--pink);
+            border: none;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            font-size: 24px;
+            box-shadow: 0 5px 0 var(--dark-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .btn:active { transform: translateY(4px); box-shadow: none; }
+
+        .win-message {
+            padding: 20px;
+            border: 2px dashed var(--pink);
+            border-radius: 20px;
+            background: #fff5f5;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">← Back to Menu</a>
+
+    <div id="screen-start" class="screen">
+        <h2>မိနီ Game 🎮</h2>
+        <div style="font-size: 60px; margin: 20px 0;">👻</div>
+        <p style="color: var(--text); font-weight: 500;">ကိုတေဇဆီ ခရီးရောက်ဖို့ အခက်အခဲတွေကို ကျော်ဖြတ်စို့</p>
+        <button class="btn-main" onclick="showScreen('screen-difficulty')">Play Now</button>
+    </div>
+
+    <div id="screen-difficulty" class="screen hidden">
+        <h2>Choose Difficulty</h2>
+        <button class="diff-btn" onclick="startGame('easy')">Easy (လွယ်တာမကြိုက်ဘူးမလားကွ)</button>
+        <button class="diff-btn" onclick="startGame('medium')">Medium (သာမန်လောက်ကတော့ မမျက်ချယ်တို့ကအေးဆေး)</button>
+        <button class="diff-btn" onclick="startGame('hard')">Hard (ခက်ခဲတာတွေကိုမှရင်ခုန်တာဗျို့)</button>
+    </div>
+
+    <div id="screen-game" class="screen hidden">
+        <p id="status" style="font-weight: bold; margin-bottom: 10px; color: var(--dark-pink);">Good luck! 🍀</p>
+        <canvas id="mazeCanvas" width="300" height="300"></canvas>
+        
+        <div class="maze-controls">
+            <button class="btn" onclick="move('up')">▲</button>
+            <div class="control-row">
+                <button class="btn" onclick="move('left')">◀</button>
+                <button class="btn" onclick="move('down')">▼</button>
+                <button class="btn" onclick="move('right')">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-victory" class="screen hidden">
+        <div class="win-message">
+            <p style="text-align: left;">မေတ္တာလမ်းခရီးလေးတွေက ဘယ်လောက်ပဲ အကာအရံအတားအဆီးတွေနဲ့ပဲကြုံကြုံ <br> ကျွန်တော့်ဆီကိုနောက်ဆုံးပြန်လည်ရောက်ရှိလာတဲ့အတွက်ဂုဏ်ယူပါတယ်။ <br> ကျွန်တော့်ကိုချစ်ခွင့်ပေးပါတော့ <br> ကျွန်တော့်ကောင်မလေးဖြစ်ပေးနိုင်မလား။ 💍 🧸</p>
+            <button class="btn-main" onclick="location.reload()">Play Again</button>
+            <br>
+            <a href="index.html" style="display:inline-block; margin-top:15px; color: var(--dark-pink); font-weight:bold;">Return to Main Menu</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('mazeCanvas');
+    const ctx = canvas.getContext('2d');
+    const status = document.getElementById('status');
+    const tileSize = 30;
+
+    let player = { x: 0, y: 0 };
+    let ghost = { x: 9, y: 4, dir: -1, active: false };
+    let ghostSpeed = 600;
+    let gameActive = false;
+    let ghostInterval;
+
+    const map = [
+        [0, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 1, 1, 0, 1, 1, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+        [1, 1, 0, 1, 0, 1, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 0]
+    ];
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+    }
+
+    function startGame(difficulty) {
+        showScreen('screen-game');
+        player = { x: 0, y: 0 };
+        gameActive = true;
+        
+        if (difficulty === 'easy') {
+            ghost.active = false;
+        } else {
+            ghost.active = true;
+            ghostSpeed = (difficulty === 'hard') ? 250 : 500;
+            startGhost();
+        }
+        draw();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let r = 0; r < 10; r++) {
+            for (let c = 0; c < 10; c++) {
+                if (map[r][c] === 1) {
+                    ctx.fillStyle = "#a89090";
+                    ctx.fillRect(c*30+1, r*30+1, 28, 28);
+                    ctx.strokeStyle = "#d8a0a0";
+                    ctx.strokeRect(c*30+4, r*30+4, 20, 20);
+                }
+            }
+        }
+        ctx.font = "22px Arial";
+        ctx.fillText("👨‍🦰", 9*30+4, 9*30+22);
+        if (ghost.active) ctx.fillText("👻", ghost.x*30+2, ghost.y*30+22);
+        ctx.fillText("👩", player.x*30+2, player.y*30+22);
+    }
+
+    function startGhost() {
+        if(ghostInterval) clearInterval(ghostInterval);
+        ghostInterval = setInterval(() => {
+            if (!gameActive || !ghost.active) return;
+            ghost.x += ghost.dir;
+            if (ghost.x >= 9 || ghost.x <= 0) ghost.dir *= -1;
+            
+            if (player.x === ghost.x && player.y === ghost.y) {
+                player = { x: 0, y: 0 };
+                status.innerText = " ကဲသရဲကြီးက ဖမ်းမိသွားပြီ။ 👻";
+            }
+            draw();
+        }, ghostSpeed);
+    }
+
+    function move(dir) {
+        if (!gameActive) return;
+        let nx = player.x, ny = player.y;
+        if (dir === 'up') ny--; if (dir === 'down') ny++;
+        if (dir === 'left') nx--; if (dir === 'right') nx++;
+
+        if (nx >= 0 && nx < 10 && ny >= 0 && ny < 10 && map[ny][nx] === 0) {
+            player = { x: nx, y: ny };
+        }
+        
+        draw();
+        if (player.x === 9 && player.y === 9) {
+            gameActive = false;
+            clearInterval(ghostInterval);
+            showScreen('screen-victory');
+        }
+    }
+</script>
+</body>
+</html>

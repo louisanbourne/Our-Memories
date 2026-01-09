@@ -1,0 +1,108 @@
+:root {
+            --cream: #FFFDD0;
+            --pink: #F4C2C2;
+            --dark-pink: #d8a0a0;
+            --text: #5d4037;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Login Styles */
+        .login-box input {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 12px;
+            border: 2px solid var(--pink);
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: var(--pink);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: var(--dark-pink); }
+
+        /* Main Page Nav */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-card {
+            background: var(--pink);
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Content Sections */
+        .content-section { text-align: left; }
+        .photo-slot {
+            border: 2px dashed var(--pink);
+            padding: 20px;
+            margin: 10px 0;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        /* Things to do - Flexbox/Animation */
+        .todo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .todo-item {
+            flex: 1 1 calc(50% - 10px);
+            background: var(--pink);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            overflow: hidden;
+            height: 50px;
+        }
+
+        .todo-item.active {
+            flex: 1 1 100%;
+            height: auto;
+            background: var(--cream);
+            border: 2px solid var(--pink);
+        }
+
+        .todo-content { display: none; margin-top: 10px; }
+        .active .todo-content { display: block; }
+
+        .back-btn { margin-bottom: 20px; display: inline-block; font-size: 0.8rem; text-decoration: underline; cursor: pointer; }
